@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn">
 <head>
     <meta charset="UTF-8">
     <title>幸运抽奖</title>
 </head>
 <body>
+    <div id="wrap">
+<!--        <img src="./../version_first/images/dzpbg.png" alt="">-->
+        <canvas id="cvs"></canvas>
 
+        <hr>
+        计划不如变化快,看了一下网上别人做的抽奖,大致思路就是  div里嵌套一个canvas来展示待抽奖项 <br>
+        在canvas上浮动居中一个抽奖按钮 <br>
+        用到了canvas的旋转,保存,恢复,旋转时Math.PI的设置 等等
+        <canvas id="luckydraw"></canvas>
+        <hr>
+    </div>
+    <script>
+        function fkcvs(domid,cvskuan,cvsgao,x,y,fkkuan,fkgao,linecolor,linewidth,fillcolor){
+            let cvs = document.getElementById(domid);
+            // cvs.style.width = 500 + 'px';
+            // cvs.style.height = 800 + 'px';
+
+            cvs.setAttribute('width',cvskuan+'px')
+            cvs.setAttribute('height',cvsgao+'px')
+
+            let ctx = cvs.getContext('2d');
+            ctx.beginPath();
+            ctx.moveTo(x,y);
+            ctx.lineTo(fkkuan+x,y);
+            ctx.lineTo(fkkuan+x,y+fkgao);
+            ctx.lineTo(x,y+fkgao);
+            ctx.closePath();
+            ctx.fillStyle = fillcolor;
+            ctx.fill();
+            ctx.lineWidth = linewidth;
+            ctx.strokeStyle = linecolor;
+            ctx.stroke();
+        }
+        fkcvs('cvs',200,100,20,10,70,50,'#f0f00f',10,'#ccc')
+
+        // 网红时钟
+
+    </script>
 </body>
 </html>
