@@ -37,6 +37,13 @@
             ctx.lineWidth = linewidth;
             ctx.strokeStyle = linecolor;
             ctx.stroke();
+
+
+            let image = new Image();
+            image.src = './../version_first/images/dzpbg.png';
+            image.onload = function () {
+                ctx.drawImage(image,0,0)
+            }
         }
         fkcvs('cvs',200,100,20,10,70,50,'#f0f00f',10,'#ccc')
 
