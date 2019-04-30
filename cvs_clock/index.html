@@ -5,11 +5,31 @@
     <title>画布时钟</title>
 </head>
 <body>
-    <p>画布时钟</p>
-    <div>
+    <img src="" alt="">
+    <div id="cvsbox">
         <canvas id="clockcvs"></canvas>
     </div>
+    <button onclick="jieping()">获取此刻的时间截屏</button>
     <script>
+        // ===========================================截屏事件 开始===========================================
+        function jieping(){
+            let imgdata = document.getElementById('clockcvs').toDataURL('image/png');
+            console.log(imgdata)
+            downloadFile('当前时刻.png',imgdata);
+        }
+        // ===========================================截屏事件 结束===========================================
+
+        // ===========================================文件自动下载 开始===========================================
+        function downloadFile(fileName, dataurl){
+            let alink = document.createElement('a');
+            alink.download=fileName;
+            alink.href = dataurl;
+            alink.target = '_blank';
+            alink.click();
+        }
+        // ===========================================文件自动下载 结束===========================================
+
+        // ===========================================互补及动效js 开始===========================================
         let cvsparams = {
             // 选择器==画布宽高值==中间的字==中间字大小==时间字体大小==圆盘背景色==背景图片==中间字颜色==时间字体颜色==画布背景色(默认透明)==圆盘的outline色
             selectdom:'div>#clockcvs',      //选择器
@@ -25,22 +45,11 @@
             outlinecolor:'',      //圆盘的outline色
             currentboxcolor:''      //当前时间框的填充色
         }
-        // let cvsparams = {
-        //     // 选择器==画布宽高值==中间的字==中间字大小==时间字体大小==圆盘背景色==背景图片==中间字颜色==时间字体颜色==画布背景色(默认透明)==圆盘的outline色
-        //     selectdom:'div>#clockcvs',      //选择器
-        //     cvswh:660,      //画布宽高值
-        //     word:'牟',      //中间的字
-        //     wordsize:27,      //中间字大小
-        //     timesize:15,      //时间字体大小
-        //     bgclolr:'#cfc',      //圆盘背景色
-        //     bgpic:'./dzpbg.png',      //背景图片
-        //     wordcolor:'orange',      //中间字颜色
-        //     timecolor:'green',      //时间字体颜色
-        //     boxbgclolr:'',      //画布背景色(默认透明)
-        //     outlinecolor:'red'      //圆盘的outline色
-        // }
+
         // 计时器显示画布
-        let cvsinterval = setInterval(getsettime,500);
+        let cvsinterval
+        clearInterval(cvsinterval);
+        cvsinterval = setInterval(getsettime,500);
 
         // 获取当前时间
         function getsettime() {
@@ -346,7 +355,7 @@
             cvsshowtime(timedata,cvsparams);
         }
 
-        // 画布事件 参数:  选择器==显示时间数据==画布宽高值==中间的字==中间字大小==时间字体大小==圆盘背景色==背景图片==中间字颜色==时间字体颜色==画布背景色(默认透明)==圆盘的outline色
+        // 画布事件 参数:  选择器==显示时间数据==画布宽高值==中间的字==中间字大小==时间字体大小==圆盘背景色==背景图片==中间字颜色==时间字体颜色==当前时间框的填充色==画布背景色(默认透明)==圆盘的outline色
         function cvsshowtime(timedata,cvsparams) {
             let selectdom = cvsparams.selectdom,cvswh = cvsparams.cvswh,word = cvsparams.word,wordsize = cvsparams.wordsize,timesize = cvsparams.timesize,bgclolr = cvsparams.bgclolr,bgpic = cvsparams.bgpic,wordcolor = cvsparams.wordcolor,timecolor = cvsparams.timecolor,currentboxcolor= cvsparams.currentboxcolor,boxbgclolr = cvsparams.boxbgclolr,outlinecolor = cvsparams.outlinecolor;
 
@@ -434,6 +443,7 @@
                 ctx.restore();
             }
         }
+        // ===========================================互补及动效js 结束===========================================
     </script>
 </body>
 </html>
